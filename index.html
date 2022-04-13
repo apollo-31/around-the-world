@@ -9,18 +9,29 @@
     rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
     crossorigin="anonymous">
 
-    <link href="stylesheet" href=".assets/css/style.css">
+    <link href="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
-   <div class="primarySlide bg-light">
-       <h1 class="header bg-primary">Around The World</h1>
-        <p class ="organize bg-light"> Plan and organize trips/events/weather all in one place</p>
+    <!--homepage-->
+     <header>
+       <h1 class="bg-primary">Around The World</h1>
+       <nav>
+         <ul>
+           <li>
+             <a href="#home-page">Home</a>
+           </li>
+           <li>
+            <a href="#your-trips">Trips</a>
+          </li>
+         </ul>
+       </nav>
+      </header>
+        <p class ="organize"> Plan and organize trips/events/weather all in one place</p>
 
-       <h2 class="where bg-success">Where do you want to go?</h2>
+       <h2 class="where">Where do you want to go?</h2>
        <input type="text" id="whereYouGo" />
        <button type="button" class="btn btn-primary" id="goBtn">Go</button>
-   </div>
+      <!--homepage ends-->
 
    <div class="availFlights">
        <h3>Available Flights:</h3>
@@ -37,10 +48,27 @@
            <button type="button" id="flightSearchBtn">Search Flights</button>
         </form>
 
-        <div class="flightResults">
-
-        </div>
+        <div class="flightResults"></div>
     </div>
+
+    <!--trip summary section begins-->
+    <section class="trip-summary">
+      <h3 class="summary">Trip Summary</h3>
+
+      <!--travel flights begin-->
+      <h4 class="flights">Your Flight</h4>
+
+      <!--Weather forecast while there section begins-->
+      <h4 class="forecast">Weather Forecast While Your There.</h4>
+      <div class="m-2">
+        <h3 class="text-primary">5-Day Forecast:</h3>
+        <div class="forecast row text-dark"></div>
+    </div>
+
+          <!--local events section begins-->
+      <h4 class="local">Local Events</h4>
+    </section>
+          <!--Weather forecast while there section ends-->
 
     <script src="./js/script.js"></script>
 </body>
