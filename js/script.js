@@ -1,5 +1,6 @@
 var primarySlide = document.querySelector(".primarySlide");
 var secondarySlide = document.querySelector(".trip-summary");
+var eventSection = document.querySelector(".local");
 
 var goingDate = document.querySelector("#goingDate");
 var comingBackDate = document.querySelector("#comingBackDate");
@@ -73,8 +74,8 @@ var secondSlide = function() {
         //         console.log(data);
         //     })
         // })
-    
-        var eventsApi = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + destName + "&apikey=FKA8aYhM8iHaCS67OhDL1AgP1DUITuPw";
+        .then(function([lat,lon]) {
+            var eventsApi = "https://app.ticketmaster.com/discovery/v2/events.json?latlong=" + lat + "," + lon + "&apikey=FKA8aYhM8iHaCS67OhDL1AgP1DUITuPw&size=10";
         
         fetch(eventsApi)
         .then(function(response) {
@@ -82,7 +83,22 @@ var secondSlide = function() {
         })
         .then(function(data) {
             console.log(data);
+            for (i = 0; i < data._embedded.events.length; i++) {
+                var eventCard = document.createElement("div");
+                var eventName = document.createElement("p");
+                eventName.textContent = data._embedded.events[i].name;
+                
+                var eventType = document.createElement("p");
+                eventType.textContent = "type of event: " + data._embedded.events[i].classifications[0].segment.name;
+
+                eventCard.appendChild(eventName);
+                eventCard.appendChild(eventType);
+                eventSection.appendChild(eventCard);
+
+            }
         })
+        })
+        
 }
 
 
