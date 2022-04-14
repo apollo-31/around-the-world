@@ -1,12 +1,5 @@
-header {
-    padding: 20px 35px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    position: sticky;
-    top: 0;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: 80%;
-    z-index: 9999;
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+
+.forecast{
+    $family-secondary;
 }
