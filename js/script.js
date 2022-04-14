@@ -57,22 +57,32 @@ var secondSlide = function() {
 
             return[lat,lon];
 
-        }).then(function([lat,lon]) {
-            var startUnix = Math.round((new Date(leavingDate)).getTime() / 1000).toString();
-            var endUnix = Math.round((new Date(comingDate)).getTime() / 1000).toString();
-            console.log(startUnix);
-
-            var getWeather = "http://history.openweathermap.org/data/2.5/history/city?lat=" + lat + "&lon=" + lon + "&type=hour&start=" + startUnix + "&end=" + endUnix + "&appid=5a5307ea2f6a35b62ce0461de8e45a8d";
-
-            fetch(getWeather)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                console.log(data);
-            })
         })
+        // .then(function([lat,lon]) {
+        //     var startUnix = Math.round((new Date(leavingDate)).getTime() / 1000).toString();
+        //     var endUnix = Math.round((new Date(comingDate)).getTime() / 1000).toString();
+        //     console.log(startUnix);
+
+        //     var getWeather = "http://history.openweathermap.org/data/2.5/history/city?lat=" + lat + "&lon=" + lon + "&type=hour&start=" + startUnix + "&end=" + endUnix + "&appid=5a5307ea2f6a35b62ce0461de8e45a8d";
+
+        //     fetch(getWeather)
+        //     .then(function(response) {
+        //         return response.json();
+        //     })
+        //     .then(function(data) {
+        //         console.log(data);
+        //     })
+        // })
     
+        var eventsApi = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + destName + "&apikey=FKA8aYhM8iHaCS67OhDL1AgP1DUITuPw";
+        
+        fetch(eventsApi)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+        })
 }
 
 
