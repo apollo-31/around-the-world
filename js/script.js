@@ -1,6 +1,6 @@
 var primarySlide = document.querySelector(".primarySlide");
 var secondarySlide = document.querySelector(".trip-summary");
-var destinationInput = document.querySelector("#destination").value;
+
 var goingDate = document.querySelector("#goingDate");
 var comingBackDate = document.querySelector("#comingBackDate");
 
@@ -23,9 +23,17 @@ var firstSlide = function() {
     
 
     var goBtn = document.querySelector("#goBtn");
-    goBtn.addEventListener("click", secondSlide);
+    goBtn.addEventListener("click", function() {
+        function getInputValue() {
+           var destinationInput = document.querySelector("#destination").value; 
 
-    console.log(destinationInput);
+           localStorage.setItem("destination", destinationInput);
+        };
+        getInputValue();
+
+        secondSlide();
+    });
+
 
     
 }
@@ -33,8 +41,9 @@ var firstSlide = function() {
 var secondSlide = function() {
     secondarySlide.style.display = "initial";
     primarySlide.style.display = "none";
-    
-        var getCoordsApi = "https://api.openweathermap.org/data/2.5/weather?q=" + destinationInput + "&units=imperial&appid=5a5307ea2f6a35b62ce0461de8e45a8d";
+
+    var destName = localStorage.getItem("destination");
+        var getCoordsApi = "https://api.openweathermap.org/data/2.5/weather?q=" + destName + "&units=imperial&appid=5a5307ea2f6a35b62ce0461de8e45a8d";
 
         fetch(getCoordsApi)
         .then(function(response) {
@@ -48,7 +57,17 @@ var secondSlide = function() {
 
             return[lat,lon];
 
-        // }).then(function([lat,lon])
+        }).then(function([lat,lon]) {
+
+            var getWeather = "http://history.openweathermap.org/data/2.5/history/city?lat=" + lat + "&lon=" + lon + "&type=hour&start=" + startUnix + "&end=" + endUnix + "&appid=5a5307ea2f6a35b62ce0461de8e45a8d";
+
+            fetch(getWeather)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                console.log(data);
+            })
         })
     
 }
