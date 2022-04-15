@@ -13,6 +13,7 @@ body {
 }
 
 .eventCards {
+    margin-top: 15px;
     background-color: lightsteelblue;
     border-radius: 15px;
     font-size: 18px;
@@ -20,18 +21,24 @@ body {
     height: 300px;
 }
 
-.todayWeather {
+.weatherDivs {
     background-color: mediumslateblue;
     text-align: center;
     padding: 7px;
-    width: 200px;
     margin-bottom: 25px;
     border-radius: 15px;
-
+    color: white;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    margin-top: 10px;
 }
 
-.todayDescription {
-    color: white;
-    font-weight: 600;
-    
+.weatherDates {
+    font-weight: bold;
+    font-size: 20px;
+    /* border: 2px solid purple; */
+    background-color: purple;
+    border-radius: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }

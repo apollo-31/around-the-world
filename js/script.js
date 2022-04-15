@@ -15,8 +15,7 @@ var comingBackDatePicker = new Datepicker(comingBackDate, {
         autohide: "true"
     });
 
-var leavingDate = leavingDatePicker.getDate("yyyy.mm.dd");
-var comingDate = comingBackDatePicker.getDate("yyyy.mm.dd");
+
 
 
 var firstSlide = function() {
@@ -39,12 +38,14 @@ var firstSlide = function() {
  
 }
 
-
+var lat;
+var lon;
 
 var secondSlide = function() {
     secondarySlide.style.display = "initial";
     primarySlide.style.display = "none";
-
+    var leavingDate = leavingDatePicker.getDate("yyyy-mm-dd");
+    var comingDate = comingBackDatePicker.getDate("yyyy-mm-dd");
     var destName = localStorage.getItem("destination");
         var getCoordsApi = "https://api.openweathermap.org/data/2.5/weather?q=" + destName + "&units=imperial&appid=5a5307ea2f6a35b62ce0461de8e45a8d";
 
@@ -55,21 +56,59 @@ var secondSlide = function() {
         .then(function(data) {
             console.log(data);
 
-            var todayWeather = document.createElement("div");
-            todayWeather.className = "todayWeather";
-            var todayDescription = document.createElement("p");
-            todayDescription.className = "todayDescription";
-            todayDescription.textContent = data.weather[0].description;
+           lon = data.coord.lon;
+           lat = data.coord.lat;
 
-            todayWeather.appendChild(todayDescription);
-            forecastSection.appendChild(todayWeather);
+        }).then(function() {
 
-           var lon = data.coord.lon;
-           var lat = data.coord.lat;
+            var oneCallApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=5a5307ea2f6a35b62ce0461de8e45a8d&units=imperial";
 
-           return [lat,lon];
+            fetch(oneCallApi)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                console.log(data);
+
+                for (i = 0; i < data.daily.length; i++) {
+                    var weatherDay = document.createElement("div");
+                    weatherDay.classList = "weatherDivs column is-seven";
+
+                    var dt = data.daily[i].dt;
+                    var milliseconds = dt * 1000;
+                    var dateObject = new Date(milliseconds);
+                    var dateFormatted = dateObject.toLocaleString("en-US", { month: "numeric", year: "numeric" ,day: "numeric"});
+                        
+                    var date = document.createElement("p");
+                    date.textContent = dateFormatted;
+                    date.className = "weatherDates";
+
+                    var temp = document.createElement("p");
+                    temp.textContent = "Temp: " + data.daily[i].temp.day + "°F";
+
+                    var feelsLike = document.createElement("p");
+                    feelsLike.textContent = "Feels like: " + data.daily[i].feels_like.day + "°F";
+
+                    var humidity = document.createElement("p");
+                    humidity.textContent = "Humidity: " + data.daily[i].humidity + "%";
+
+                    var windSpeed = document.createElement("p");
+                    windSpeed.textContent = "Wind Speed" + data.daily[i].wind_speed + "MPH";
+
+                    var weatherDescription = document.createElement("p");
+                    weatherDescription.textContent = "Conditions: " + data.daily[i].weather[0].description;
+
+                    weatherDay.appendChild(date);
+                    weatherDay.appendChild(temp);
+                    weatherDay.appendChild(feelsLike);
+                    weatherDay.appendChild(humidity);
+                    weatherDay.appendChild(windSpeed);
+                    weatherDay.appendChild(weatherDescription);
+                    forecastSection.appendChild(weatherDay);
+                }
+            })
         })
-        .then(function([lat,lon]) {
+        .then(function() {
             var eventsApi = "https://app.ticketmaster.com/discovery/v2/events.json?latlong=" + lat + "," + lon + "&apikey=FKA8aYhM8iHaCS67OhDL1AgP1DUITuPw&size=10";
 
         fetch(eventsApi)
