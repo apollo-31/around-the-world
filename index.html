@@ -27,7 +27,7 @@
 
       <div class="primarySlide columns">
 
-       <h2 class="dateAndDest is-size-3">Start Planning Your Trip</h2>
+       <h2 class="dateAndDest startPlanningHeader">Start Planning Your Trip</h2>
        
        <div class="column">
        <label class="label" for="destination">What is your Destination?</label>
@@ -41,12 +41,12 @@
         <label class="label" for="comingBackDate">What day are coming back?</label>
         <input type="text" id="comingBackDate" name="comingBackDate" />
       </div>
-      <div class="field is-grouped">
+      <div class="field is-grouped mainPageButtons">
         <div class="control">
-          <button type="button" class="button is-outlined is-info" id="goBtn">Go</button>
+          <button type="button" class="button is-outlined is-info goBtn" id="goBtn">Go</button>
         </div>
         <div class="control">
-          <button class="button is-link is-light">Cancel</button>
+          <button class="button is-link is-light cancelBtn">Cancel</button>
         </div>
       </div>
       </div>
@@ -56,18 +56,17 @@
 
     <!--trip summary section begins-->
 <div class="trip-summary">
-      <h3 class="summary dateAndDest is-size-3">Trip Details</h3>
+      <h3 class="summary dateAndDest tripDetailsHeader">Trip Details</h3>
 
       <!--Weather forecast while there section begins-->
-      <h4 class="forecast">Weather Forecast:</h4>
-      <div class="m-2">
-        <h3 class="text-primary">Current forecast in your destination:</h3>
+      <div class="m-2 weatherSection">
+        <h3 class="text-primary currentForecastHeader">Current forecast in your destination:</h3>
         <div id="forecastSection" class="forecast row text-dark columns"></div>
     </div>
 
           <!--local events section begins-->
-          <div>
-            <h5>Local Events:</h5>
+          <div class="localEventsSection">
+            <h5 class="localEventsHeader">Local Events:</h5>
       <div class="local columns is-mobile is-multiline"></div>
     </div>
   </div>

@@ -121,6 +121,7 @@ var secondSlide = function() {
                 var eventCard = document.createElement("div");
                 eventCard.classList = "eventCards column is-three";
                 var eventName = document.createElement("p");
+                eventName.classList = "eventNames";
                 eventName.textContent = data._embedded.events[i].name;
                 
                 var eventType = document.createElement("p");
