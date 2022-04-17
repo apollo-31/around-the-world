@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #96D294;
+    background-color: #6cd468;
     /* background-image: linear-gradient(45deg, lightblue,lightskyblue, blue); */
     height: 100%;
 }
@@ -51,6 +51,18 @@ body {
 .theWorld {
     background-image: linear-gradient(45deg, #A5739B, #9673A5, #7D73A5);
     color: white;
+}
+
+.theWorld nav{
+    margin: 7px 0 ;
+}
+
+.theWorld nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
 }
 
 .theWorld nav ul li a {
