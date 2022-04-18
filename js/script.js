@@ -2,6 +2,7 @@ var primarySlide = document.querySelector(".primarySlide");
 var secondarySlide = document.querySelector(".trip-summary");
 var eventSection = document.querySelector(".local");
 var forecastSection = document.querySelector("#forecastSection");
+var homeButton = document.querySelector("#homeButton")
 
 var goingDate = document.querySelector("#goingDate");
 var comingBackDate = document.querySelector("#comingBackDate");
@@ -15,7 +16,7 @@ var comingBackDatePicker = new Datepicker(comingBackDate, {
         autohide: "true"
     });
 
-
+var destinationArr = [];
 
 
 var firstSlide = function() {
@@ -27,9 +28,11 @@ var firstSlide = function() {
     var goBtn = document.querySelector("#goBtn");
     goBtn.addEventListener("click", function() {
         function getInputValue() {
-           var destinationInput = document.querySelector("#destination").value; 
-
+           var destinationInput = document.querySelector("#destination").value;
+           
            localStorage.setItem("destination", destinationInput);
+
+           
         };
         getInputValue();
 
@@ -119,22 +122,48 @@ var secondSlide = function() {
             console.log(data);
             for (i = 0; i < data._embedded.events.length; i++) {
                 var eventCard = document.createElement("div");
-                eventCard.classList = "eventCards column is-three";
+                eventCard.classList = "eventCards column";
                 var eventName = document.createElement("p");
                 eventName.classList = "eventNames";
                 eventName.textContent = data._embedded.events[i].name;
                 
                 var eventType = document.createElement("p");
-                eventType.textContent = "type of event: " + data._embedded.events[i].classifications[0].segment.name;
+                var eventTypeSpan = document.createElement("span");
+                eventTypeSpan.className = "eventSpans";
+                eventTypeSpan.textContent = "Type of Event: ";
+                eventType.textContent = eventTypeSpan.textContent + data._embedded.events[i].classifications[0].segment.name;
+
+                var eventGenre = document.createElement("p");
+                var eventGenreSpan = document.createElement("span");
+                eventGenreSpan.className = "eventSpans";
+                eventGenreSpan.textContent = "Genre: ";
+                eventGenre.textContent = eventGenreSpan.textContent + data._embedded.events[i].classifications[0].genre.name;
+
+                var dateOfEvent = document.createElement("p");
+                var dateOfEventSpan = document.createElement("span");
+                dateOfEventSpan.className = "eventSpans";
+                dateOfEventSpan.textContent = "When: ";
+                dateOfEvent.textContent = dateOfEventSpan.textContent +  data._embedded.events[i].dates.start.localDate;
+
+                var timeOfEvent = document.createElement("p");
+                var timeOfEventSpan = document.createElement("span");
+                timeOfEventSpan.className = "eventSpans";
+                timeOfEventSpan.textContent = "Time: ";
+                timeOfEvent.textContent = timeOfEventSpan.textContent + data._embedded.events[i].dates.start.localTime;
 
                 eventCard.appendChild(eventName);
+                eventCard.appendChild(dateOfEvent);
+                eventCard.appendChild(timeOfEvent);
                 eventCard.appendChild(eventType);
+                eventCard.appendChild(eventGenre);
                 eventSection.appendChild(eventCard);
 
             }
         })
         })    
 }
+
+
 
 
 firstSlide();
